@@ -1,6 +1,29 @@
 <?php
-
 // colocar session_start();
+
+/*=============================================
+REMEBER ME
+=============================================*/
+
+if (isset($_COOKIE["tkn"])) {
+
+	$item   = "token";
+	$sesion = ControladorUsuarios::ctrMostrarSesion($item, $_COOKIE["tkn"]);
+
+	// descomentar cuando se suba a servidor
+	// $ip =  ControladorFunciones::getip();
+	$ip = "187.190.154.5";
+
+	if ($sesion["status"] == 1 && $sesion["ip"] == $ip) {
+
+		$valor = $sesion["user"];
+
+		$login = ControladorUsuarios::ctrCrearSesion($valor);
+
+
+	}
+
+}
 session_start();
 
 /*=============================================
@@ -77,8 +100,23 @@ $servidor = Ruta::ctrRutaServidor();
 
 			include "modulos/barra-superior.php";
 
+			if (isset($_GET["ruta"])) {
 
-			 ?>
+				if ($_GET["ruta"] == "inicio" ||
+		        	$_GET["ruta"] == "salir") {
+
+					include "modulos/".$_GET["ruta"].".php";
+
+				}
+
+
+			}else{
+
+		    		include "modulos/inicio.php";
+
+		    	}
+
+			?>
 
 		</div>
 
@@ -168,6 +206,8 @@ $servidor = Ruta::ctrRutaServidor();
 	=========================================
 	JAVASCRIPT PERSONALIZADOS
 	======================================-->
+
+	<script src="vista/js/usuarios.js"></script>
 
 	<script>
 

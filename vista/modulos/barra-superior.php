@@ -95,7 +95,7 @@ NAV SUPERIOR
 
           <div class="dropdown-divider"></div>
 
-          <a href="logout" class="dropdown-item">
+          <a href="salir" class="dropdown-item">
 
               <i class="fas fa-user-circle mr-2"></i> Cerrar Sesión
               <!-- <span class="float-right text-muted text-sm">3 mins</span> -->

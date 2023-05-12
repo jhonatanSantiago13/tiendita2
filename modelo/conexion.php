@@ -12,7 +12,7 @@ class Conexion{
 			barcelona
 			 */
 
-		 	$link = new PDO("mysql:host=localhost;dbname=crudejemplo",
+		 	$link = new PDO("mysql:host=localhost;dbname=tiendita",
 		            "root",
 		            "jhonatan",
 		            array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
