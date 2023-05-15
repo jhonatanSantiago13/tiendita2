@@ -79,6 +79,32 @@ class ModeloUsuarios{
 
     }
 
+    /*=============================================
+	CAMBIAR EL ESTATUS DEL REMBERME
+	=============================================*/
+
+	static public function mdlUpdateStatusSesion($item, $valor, $item2, $valor2, $tabla){
+
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET $item = :$item WHERE $item2 = :$item2");
+
+		$stmt -> bindParam(":".$item, $valor, PDO::PARAM_INT);
+		$stmt -> bindParam(":".$item2, $valor2, PDO::PARAM_STR);
+
+		if($stmt->execute()){
+
+			return "ok";
+
+		}else{
+
+			return "error";
+
+		}
+
+		$stmt -> close();
+		$stmt = null;
+
+	}
+
 }
 
  ?>

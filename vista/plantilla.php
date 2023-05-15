@@ -99,6 +99,7 @@ $servidor = Ruta::ctrRutaServidor();
 			<?php
 
 			include "modulos/barra-superior.php";
+			include "modulos/menu-lateral.php";
 
 			if (isset($_GET["ruta"])) {
 

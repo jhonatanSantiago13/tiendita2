@@ -24,6 +24,14 @@ class ControladorUsuarios{
 
 			foreach ($respuesta as $key => $value) {
 
+				if ($value["estatus"] != "Activo") {
+
+					echo "error";
+
+					return false;
+
+				}
+
 				if ($value['password'] == $cifrar) {
 
 					/*CREAR LA COOKIE DE RECUERDAME*/
@@ -135,6 +143,22 @@ class ControladorUsuarios{
 
 	}
 
+	/*=============================================
+	CAMBIAR EL ESTATUS DEL REMBERME
+	=============================================*/
+
+    static public function ctrUpdateStatusSesion($token){
+
+    	$item  = "status";
+    	$item2   = "token";
+    	$status = 0;
+		$tabla = "sesiones";
+
+		$respuesta = ModeloUsuarios::mdlUpdateStatusSesion($item, $status, $item2, $token, $tabla);
+
+		return $respuesta;
+
+    }
 
 }
 
