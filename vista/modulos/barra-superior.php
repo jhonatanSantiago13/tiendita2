@@ -72,7 +72,7 @@ NAV SUPERIOR
 
       <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 
-          <h5 class="dropdown-item">User Name</h5>
+          <h5 class="dropdown-item"><?php echo $_SESSION["nombreTiendita"]." ".$_SESSION["apellidosTiendita"]; ?></h5>
 
           <div class="dropdown-divider"></div>
 
