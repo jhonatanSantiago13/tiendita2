@@ -107,9 +107,7 @@ $servidor = Ruta::ctrRutaServidor();
 
 				<?php
 
-
 				}
-
 
 				?>
 
