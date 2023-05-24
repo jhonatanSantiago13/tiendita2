@@ -104,7 +104,8 @@ $servidor = Ruta::ctrRutaServidor();
 			if (isset($_GET["ruta"])) {
 
 				if ($_GET["ruta"] == "inicio" ||
-		        	$_GET["ruta"] == "salir") {
+		        	$_GET["ruta"] == "salir" ||
+		            $_GET["ruta"] == "editar-perfil") {
 
 					include "modulos/".$_GET["ruta"].".php";
 
