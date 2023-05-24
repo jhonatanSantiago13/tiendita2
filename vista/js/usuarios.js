@@ -10,7 +10,6 @@ const usernameLogin = document.getElementById("usernameLogin");
 const passLogin     = document.getElementById("passLogin");
 const rememberme    = document.getElementById("rememberme");
 
-
 /*=============================================
 CAMBIAR DE COLOR LOS INPUTS
 =============================================*/
@@ -62,23 +61,31 @@ const cambiarColor = (caja, cadena)=>{
 
 }
 
-usernameLogin.addEventListener("keyup", ()=>{
+/*se hace este if para cuando el sistema n oeste en el formularuio
+de lo gin no arroje un error y permita corteer el demas codigo JS*/
+
+if (usernameLogin != null && passLogin != null) {
+
+	usernameLogin.addEventListener("keyup", ()=>{
 
 	let key    = usernameLogin.value;
 	const caja = "username";
 
 	cambiarColor(caja, key);
 
-})
+	})
 
-passLogin.addEventListener("keyup", ()=>{
+	passLogin.addEventListener("keyup", ()=>{
 
    let   key  = passLogin.value;
    const caja = "password";
 
    cambiarColor(caja, key);
 
-})
+	})
+
+}
+
 
 /*=============================================
 LOGIN
@@ -128,50 +135,60 @@ const login = async (username, password, remember)=>{
 
 }
 
-signin.addEventListener("click", ()=>{
+/*se hace este if para cuando el sistema n oeste en el formularuio
+de lo gin no arroje un error y permita corteer el demas codigo JS*/
 
-	const username = usernameLogin.value;
-	const password = passLogin.value;
-	const check    = rememberme.checked;
+if (signin !=null) {
 
-	if (username.length < 1) {
+	signin.addEventListener("click", ()=>{
 
-		Swal.fire({
-			  icon: 'warning',
-			  title: 'CAMPO VACIO!',
-			  text: 'El campo username está vacio!'
+		const username = usernameLogin.value;
+		const password = passLogin.value;
+		const check    = rememberme.checked;
 
-		})
+		if (username.length < 1) {
 
-		usernameLogin.style.borderColor = 'red';
+			Swal.fire({
+				  icon: 'warning',
+				  title: 'CAMPO VACIO!',
+				  text: 'El campo username está vacio!'
 
-		const caja = "username";
-	    cambiarColor(caja, username);
+			})
 
-		return false;
+			usernameLogin.style.borderColor = 'red';
 
-	}else if (password.length < 1) {
+			const caja = "username";
+		    cambiarColor(caja, username);
 
-		Swal.fire({
-			  icon: 'warning',
-			  title: 'CAMPO VACIO!',
-			  text: 'El campo password está vacio!'
+			return false;
 
-		})
+		}else if (password.length < 1) {
 
-		passLogin.style.borderColor = 'red';
+			Swal.fire({
+				  icon: 'warning',
+				  title: 'CAMPO VACIO!',
+				  text: 'El campo password está vacio!'
 
-		const caja = "password";
-	    cambiarColor(caja, username);
+			})
 
-		return false;
+			passLogin.style.borderColor = 'red';
 
-	}else{
+			const caja = "password";
+		    cambiarColor(caja, username);
 
-		login (username, password, check);
+			return false;
 
-	}
+		}else{
 
-})
+			login (username, password, check);
+
+		}
+
+	})
+
+} //end if signin
+
+
+
 
 

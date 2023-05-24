@@ -85,7 +85,7 @@ $servidor = Ruta::ctrRutaServidor();
 
             						<li class="nav-item">
 
-                					<a href="<?php echo $value["url"]; ?>" id="clickMenuagregar-producto" class="nav-link">
+                					<a href="<?php echo $value["url"]; ?>" id="clickMenu<?php echo $value["url"]; ?>" class="nav-link">
 
 	                  					<i class="<?php echo $value["icono"]; ?>"></i>
 	                  					<p><?php echo $value["nombre"]; ?></p>

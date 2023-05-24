@@ -105,7 +105,8 @@ $servidor = Ruta::ctrRutaServidor();
 
 				if ($_GET["ruta"] == "inicio" ||
 		        	$_GET["ruta"] == "salir" ||
-		            $_GET["ruta"] == "editar-perfil") {
+		            $_GET["ruta"] == "editar-perfil" ||
+		            $_GET["ruta"] == "agregar-usuarios") {
 
 					include "modulos/".$_GET["ruta"].".php";
 
@@ -221,30 +222,118 @@ $servidor = Ruta::ctrRutaServidor();
 	let tipoPass     = document.getElementById("passLogin");
 	let cajaEyePass = document.getElementById("cajaEyePass");
 
-	cajaEyePass.addEventListener("click", ()=>{
+	/*se hace este if para cuando el sistema n oeste en el formularuio
+	de lo gin no arroje un error y permita corteer el demas codigo JS*/
 
-		if (tipoPass.type == "password"){
+	if (cajaEyePass != null) {
 
-			tipoPass.type = "text";
+		cajaEyePass.addEventListener("click", ()=>{
 
-			cajaEyePass.style.background = '#E9ECEF';
+			if (tipoPass.type == "password"){
 
-			mostrarPass.classList.remove("fa-eye");
-			mostrarPass.classList.add("fa-eye-slash");
+				tipoPass.type = "text";
 
-		}else{
+				cajaEyePass.style.background = '#E9ECEF';
 
-			tipoPass.type = "password";
+				mostrarPass.classList.remove("fa-eye");
+				mostrarPass.classList.add("fa-eye-slash");
 
-			cajaEyePass.style.background = 'white';
+			}else{
 
-			mostrarPass.classList.remove("fa-eye-slash");
-			mostrarPass.classList.add("fa-eye");
+				tipoPass.type = "password";
 
-		}
+				cajaEyePass.style.background = 'white';
+
+				mostrarPass.classList.remove("fa-eye-slash");
+				mostrarPass.classList.add("fa-eye");
+
+			}
 
 
-	})
+		})
+
+
+	}
+
+	/*=========================================
+	Mostrar y ocultar contraseña editar perfil
+	===========================================*/
+
+	let cajaEyePassPerfil = document.getElementById("cajaEyePassPerfil");
+	let tipoPassPerfil       = document.getElementById("passPerfil");
+	let mostrarPassPerfil    = document.getElementById("mostrarPassPerfil");
+
+	/*se hace este if para cuando el sistema n oeste en el formularuio
+	de lo gin no arroje un error y permita corteer el demas codigo JS*/
+
+	if (cajaEyePassPerfil !=null) {
+
+		cajaEyePassPerfil.addEventListener("click", ()=>{
+
+			if (tipoPassPerfil.type == "password"){
+
+				tipoPassPerfil.type = "text";
+
+				cajaEyePassPerfil.style.background = '#E9ECEF';
+
+				mostrarPassPerfil.classList.remove("fa-eye");
+				mostrarPassPerfil.classList.add("fa-eye-slash");
+
+			}else{
+
+				tipoPassPerfil.type = "password";
+
+				cajaEyePassPerfil.style.background = 'white';
+
+			    mostrarPassPerfil.classList.remove("fa-eye-slash");
+				mostrarPassPerfil.classList.add("fa-eye");
+
+			}
+
+		})
+
+	}
+
+
+
+	/*=========================================
+	Mostrar y ocultar contraseña editar perfil confirmar
+	===========================================*/
+
+	let cajaEyePassPerfilCon = document.getElementById("cajaEyePassPerfilCon");
+	let tipoPassPerfilCon    = document.getElementById("passPerfilCon");
+	let mostrarPassPerfilCon = document.getElementById("mostrarPassPerfilCon");
+
+	/*se hace este if para cuando el sistema n oeste en el formularuio
+	de lo gin no arroje un error y permita corteer el demas codigo JS*/
+
+	if (cajaEyePassPerfilCon != null) {
+
+		cajaEyePassPerfilCon.addEventListener("click", ()=>{
+
+			if (tipoPassPerfilCon.type == "password"){
+
+				tipoPassPerfilCon.type = "text";
+
+				cajaEyePassPerfilCon.style.background = '#E9ECEF';
+
+				mostrarPassPerfilCon.classList.remove("fa-eye");
+				mostrarPassPerfilCon.classList.add("fa-eye-slash");
+
+			}else{
+
+				tipoPassPerfilCon.type = "password";
+
+				cajaEyePassPerfilCon.style.background = 'white';
+
+			    mostrarPassPerfilCon.classList.remove("fa-eye-slash");
+				mostrarPassPerfilCon.classList.add("fa-eye");
+
+			}
+
+		})
+
+	}
 
 	/*=========================================
 	select2
@@ -263,6 +352,37 @@ $servidor = Ruta::ctrRutaServidor();
 		    forcePlaceholderSize: true,
 		    zIndex: 999999
 	})
+
+    /*=============================================
+	ACTIVE DE LAS PAGINAS
+	=============================================*/
+
+	/*capturar la url*/
+	const url = window.location.href;
+
+	const indice = url.split("/");
+
+	const pagActual = indice[4];
+
+	/*console.log("url", url);
+	console.log("indice", indice);
+	console.log("pagActual", pagActual);*/
+
+	if (pagActual != "inicio") {
+
+		$("#clickMenu"+pagActual).addClass('active');
+
+		$("#clickMenu"+pagActual).closest('li').parent().closest('li').addClass('menu-is-opening');
+
+		$("#clickMenu"+pagActual).closest('li').parent().closest('li').addClass('menu-open');
+
+		$("#clickMenu"+pagActual).parent('ul').css({"display": "block"});
+
+		// nav-item menu-is-opening menu-open
+
+		// display: block;
+
+	}
 
 
 	</script>
