@@ -203,6 +203,9 @@ $servidor = Ruta::ctrRutaServidor();
 	<!-- sweetalert2 -->
 	<script src="vista/plugins/sweetalert2/sweetalert2.min.js"></script>
 
+	<!-- BS-Stepper -->
+	<script src="vista/plugins/bs-stepper/js/bs-stepper.min.js"></script>
+
 	<!--=====================================
 	=========================================
 	=========================================
@@ -335,6 +338,91 @@ $servidor = Ruta::ctrRutaServidor();
 
 	}
 
+
+	/**/
+
+	/*=========================================
+	Mostrar y ocultar contraseña agregar perfil
+	===========================================*/
+
+	let cajaEyePassAgregar = document.getElementById("cajaEyePassAgregar");
+	let tipoPassAgregar       = document.getElementById("passAgregar");
+	let mostrarPassAgregar    = document.getElementById("mostrarPassAgregar");
+
+	/*se hace este if para cuando el sistema n oeste en el formularuio
+	de lo gin no arroje un error y permita corteer el demas codigo JS*/
+
+	if (cajaEyePassAgregar !=null) {
+
+		cajaEyePassAgregar.addEventListener("click", ()=>{
+
+			if (tipoPassAgregar.type == "password"){
+
+				tipoPassAgregar.type = "text";
+
+				cajaEyePassAgregar.style.background = '#E9ECEF';
+
+				mostrarPassAgregar.classList.remove("fa-eye");
+				mostrarPassAgregar.classList.add("fa-eye-slash");
+
+			}else{
+
+				tipoPassAgregar.type = "password";
+
+				cajaEyePassAgregar.style.background = 'white';
+
+			    mostrarPassAgregar.classList.remove("fa-eye-slash");
+				mostrarPassAgregar.classList.add("fa-eye");
+
+			}
+
+		})
+
+	}
+
+
+
+	/*=========================================
+	Mostrar y ocultar contraseña agregar perfil confirmar
+	===========================================*/
+
+	let cajaEyePassAgregarCon = document.getElementById("cajaEyePassAgregarCon");
+	let tipoPassAgregarCon    = document.getElementById("passAgregarCon");
+	let mostrarPassAgregarCon = document.getElementById("mostrarPassAgregarCon");
+
+	/*se hace este if para cuando el sistema n oeste en el formularuio
+	de lo gin no arroje un error y permita corteer el demas codigo JS*/
+
+	if (cajaEyePassAgregarCon != null) {
+
+		cajaEyePassAgregarCon.addEventListener("click", ()=>{
+
+			if (tipoPassAgregarCon.type == "password"){
+
+				tipoPassAgregarCon.type = "text";
+
+				cajaEyePassAgregarCon.style.background = '#E9ECEF';
+
+				mostrarPassAgregarCon.classList.remove("fa-eye");
+				mostrarPassAgregarCon.classList.add("fa-eye-slash");
+
+			}else{
+
+				tipoPassAgregarCon.type = "password";
+
+				cajaEyePassAgregarCon.style.background = 'white';
+
+			    mostrarPassAgregarCon.classList.remove("fa-eye-slash");
+				mostrarPassAgregarCon.classList.add("fa-eye");
+
+			}
+
+		})
+
+	}
+
+
+
 	/*=========================================
 	select2
 	===========================================*/
@@ -384,6 +472,10 @@ $servidor = Ruta::ctrRutaServidor();
 
 	}
 
+	// BS-Stepper Init
+  	document.addEventListener('DOMContentLoaded', function () {
+    window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+  	})
 
 	</script>
 
