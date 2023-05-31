@@ -159,6 +159,9 @@
 
                                                   </div>
 
+                                                  <i class="fas " id="icoOkClaveIne"></i> &nbsp;
+                                                  <span id="layValClaveIne" style="color: red; font-size: 11px;"></span>
+
                                             </div>
 
                                             <div class="form-group">
@@ -171,9 +174,13 @@
                                                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                     </div>
 
-                                                    <input type="text" id="celularAgregar"  class="form-control" data-inputmask="'mask': ['99-99-99-99-99', '+99 99 99 99 99 99']" data-mask >
+                                                    <!-- <input type="text" id="celularAgregar"  class="form-control" data-inputmask="'mask': ['99-99-99-99-99', '+99 99 99 99 99 99']" data-mask > -->
+                                                    <input type="text" id="celularAgregar"  class="form-control" data-inputmask="'mask': ['99-99-99-99-99']" data-mask >
 
                                                 </div>
+
+                                                <i class="fas " id="icoOkTelcel"></i> &nbsp;
+                                                <span id="layValTelcel" style="color: red; font-size: 11px;"></span>
 
                                             </div>
 
@@ -230,6 +237,10 @@
 
                                                   </div>
 
+                                                  <i class="fas " id="icoOkCurp"></i> &nbsp;
+                                                  <span id="layValCurp" style="color: red; font-size: 11px;"></span>
+
+
                                             </div>
 
                                             <div class="form-group">
@@ -246,6 +257,9 @@
 
                                                   </div>
 
+                                                  <i class="fas " id="icoOkRfc"></i> &nbsp;
+                                                  <span id="layValRfc" style="color: red; font-size: 11px;"></span>
+
                                             </div>
 
                                             <div class="form-group">
@@ -258,9 +272,13 @@
                                                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                     </div>
 
-                                                    <input type="text" id="telefonoAgregar"  class="form-control" data-inputmask="'mask': ['99-99-99-99-99', '+99 99 99 99 99 99']" data-mask >
+                                                    <!-- <input type="text" id="telefonoAgregar"  class="form-control" data-inputmask="'mask': ['99-99-99-99-99', '+99 99 99 99 99 99']" data-mask > -->
+                                                    <input type="text" id="telefonoAgregar"  class="form-control" data-inputmask="'mask': ['99-99-99-99-99']" data-mask >
 
                                                 </div>
+
+                                                <i class="fas " id="icoOkTel"></i> &nbsp;
+                                                <span id="layValTel" style="color: red; font-size: 11px;"></span>
 
                                             </div>
 

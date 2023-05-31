@@ -258,6 +258,12 @@ BOTONES DE SIGUIENTE EN AGREGAR USUARIO
 let checkNombre   = false;
 let checkApellido = false;
 let checkFechaNac = false;
+let checkCurp     = false;
+let checkClaveIne = false;
+let checkRfc      = false;
+let checkCel 	  = false;
+let checkTell 	  = false;
+let checkTel      = false;
 
 /*=============================================
 CAMPO NOMBRE
@@ -483,17 +489,343 @@ fechaNacAgregar.addEventListener("change", ()=>{
 })
 
 
-/*fechaNacAgregar.addEventListener("keyup", ()=>{
+/*=============================================
+CAMPO PARA VALIDAR CURP
+=============================================*/
 
-	let fecha = fechaNacAgregar.value;
+const validarCurp = (curp) =>{
 
-	console.log("fecha", validarFormatoFecha(fecha));
+		let re = /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/,
+        validado = curp.match(re);
+
+        if (!validado)  //Coincide con el formato general?
+    	return false;
+
+    	//Validar que coincida el dígito verificador
+
+    	const digitoVerificador = (curp17) =>{
+
+    		//Fuente https://consultas.curp.gob.mx/CurpSP/
+	        let diccionario  = "0123456789ABCDEFGHIJKLMNÑOPQRSTUVWXYZ",
+	            lngSuma      = 0.0,
+	            lngDigito    = 0.0;
+
+	        for(let i=0; i<17; i++)
+	            lngSuma = lngSuma + diccionario.indexOf(curp17.charAt(i)) * (18 - i);
+	        lngDigito = 10 - lngSuma % 10;
+	        if (lngDigito == 10) return 0;
+	        return lngDigito;
+
+    	}
+
+    	if (validado[2] != digitoVerificador(validado[1]))
+    	return false;
+
+    	return true; //Validado
+
+}
+
+const curpAgregar = document.getElementById("curpAgregar");
+
+curpAgregar.addEventListener("keyup", ()=>{
+
+	let icoOkCurp  = document.getElementById("icoOkCurp");
+
+	const curp = curpAgregar.value;
+
+	/*console.log("curp", curp);
+
+	console.log("validarCurp", validarCurp(curp));*/
+
+	if (!validarCurp(curp)) {
+
+		checkCurp = false;
+
+		icoOkCurp.classList.remove("fa-check");
+		icoOkCurp.classList.remove("text-success");
+
+		icoOkCurp.classList.add("fa-times");
+		icoOkCurp.classList.add("text-danger");
+
+		curpAgregar.style.borderColor = 'red';
+
+		document.getElementById("layValCurp").innerHTML="No se permiten numeros";
+
+	}else{
+
+		checkCurp = true;
+
+		icoOkCurp.classList.remove("fa-times");
+		icoOkCurp.classList.remove("text-danger");
+
+		icoOkCurp.classList.add("fa-check");
+		icoOkCurp.classList.add("text-success");
+
+		curpAgregar.style.borderColor = 'green';
+
+		document.getElementById("layValCurp").innerHTML="";
+
+	}
 
 
+})
 
-})*/
+/*=============================================
+CAMPO PARA VALIDAR CLAVE INE
+=============================================*/
+
+const claveIneAgregar = document.getElementById("claveIneAgregar");
+
+claveIneAgregar.addEventListener("keyup", ()=>{
 
 
+const icoOkClaveIne = document.getElementById("icoOkClaveIne");
+
+	const clave     = claveIneAgregar.value;
+	const expresion = "^[0-9]+$";
+
+	if (clave.match(expresion) == null){
+
+		checkClaveIne = false;
+
+		icoOkClaveIne.classList.remove("fa-check");
+		icoOkClaveIne.classList.remove("text-success");
+
+		icoOkClaveIne.classList.add("fa-times");
+		icoOkClaveIne.classList.add("text-danger");
+
+		claveIneAgregar.style.borderColor = 'red';
+
+		document.getElementById("layValClaveIne").innerHTML="Solo se permiten números";
+
+	}else if (clave.length < 10) {
+
+		checkClaveIne = false;
+
+		icoOkClaveIne.classList.remove("fa-check");
+		icoOkClaveIne.classList.remove("text-success");
+
+		icoOkClaveIne.classList.add("fa-times");
+		icoOkClaveIne.classList.add("text-danger");
+
+		claveIneAgregar.style.borderColor = 'red';
+
+		document.getElementById("layValClaveIne").innerHTML="clave muy pequeña";
+
+	}else if (clave.length > 10) {
+
+		checkClaveIne = false;
+
+		icoOkClaveIne.classList.remove("fa-check");
+		icoOkClaveIne.classList.remove("text-success");
+
+		icoOkClaveIne.classList.add("fa-times");
+		icoOkClaveIne.classList.add("text-danger");
+
+		claveIneAgregar.style.borderColor = 'red';
+
+		document.getElementById("layValClaveIne").innerHTML="solo se permiten 10 dígitos";
+
+	}else{
+
+		checkClaveIne = true;
+
+		icoOkClaveIne.classList.remove("fa-times");
+		icoOkClaveIne.classList.remove("text-danger");
+
+		icoOkClaveIne.classList.add("fa-check");
+		icoOkClaveIne.classList.add("text-success");
+
+		claveIneAgregar.style.borderColor = 'green';
+
+		document.getElementById("layValClaveIne").innerHTML="";
+
+	}
+
+})
+
+/*=============================================
+CAMPO PARA VALIDAR RFC
+=============================================*/
+
+const validarRfc = (rfc)=>{
+
+	const re     = /^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/;
+    let validado = rfc.match(re);
+
+    const aceptarGenerico = true;
+
+    if (!validado)  //Coincide con el formato general del regex?
+        return false;
+
+    //Separar el dígito verificador del resto del RFC
+    const digitoVerificador = validado.pop();
+    const rfcSinDigito      = validado.slice(1).join('');
+    const len               = rfcSinDigito.length;
+
+    //Obtener el digito esperado
+    const diccionario       = "0123456789ABCDEFGHIJKLMN&OPQRSTUVWXYZ Ñ";
+    const indice            = len + 1;
+    let   suma,
+          digitoEsperado;
+
+    if (len == 12) suma = 0
+    else suma = 481; //Ajuste para persona moral
+
+	 for(var i=0; i<len; i++)
+        suma += diccionario.indexOf(rfcSinDigito.charAt(i)) * (indice - i);
+    digitoEsperado = 11 - suma % 11;
+    if (digitoEsperado == 11) digitoEsperado = 0;
+    else if (digitoEsperado == 10) digitoEsperado = "A";
+
+    //El dígito verificador coincide con el esperado?
+    // o es un RFC Genérico (ventas a público general)?
+    if ((digitoVerificador != digitoEsperado)
+     && (!aceptarGenerico || rfcSinDigito + digitoVerificador != "XAXX010101000"))
+        return false;
+    else if (!aceptarGenerico && rfcSinDigito + digitoVerificador == "XEXX010101000")
+        return false;
+    // return rfcSinDigito + digitoVerificador;
+    return true;
+
+
+}
+
+const rfcAgregar = document.getElementById("rfcAgregar");
+
+rfcAgregar.addEventListener("keyup", ()=>{
+
+	const rfc      = rfcAgregar.value;
+	const icoOkRfc = document.getElementById("icoOkRfc");
+
+	if (!validarRfc(rfc)) {
+
+		checkRfc = false;
+
+		icoOkRfc.classList.remove("fa-check");
+		icoOkRfc.classList.remove("text-success");
+
+		icoOkRfc.classList.add("fa-times");
+		icoOkRfc.classList.add("text-danger");
+
+		rfcAgregar.style.borderColor = 'red';
+
+		document.getElementById("layValRfc").innerHTML="RFC invalido";
+
+	}else{
+
+		checkRfc = true;
+
+		icoOkRfc.classList.remove("fa-times");
+		icoOkRfc.classList.remove("text-danger");
+
+		icoOkRfc.classList.add("fa-check");
+		icoOkRfc.classList.add("text-success");
+
+		rfcAgregar.style.borderColor = 'green';
+
+		document.getElementById("layValRfc").innerHTML="";
+
+	}
+
+})
+
+/*=============================================
+CAMPO PARA VALIDAR TELEFONOS
+=============================================*/
+
+/*validarTel(valor=valor del campo, icoTel= icono de check o times, input= caja de texto, layVal=
+el label delmensaje de error*/
+const validarTel = (valor, icoOkTel, input, layVal) =>{
+
+	const icoOk = document.getElementById(icoOkTel);
+
+	const box = document.getElementById(input);
+
+	let cadena = valor.split("-");
+
+	for (let i = 0; i <=4; i++) {
+
+		if (isNaN(cadena[i])){
+
+			// console.log("cadena");
+
+			icoOk.classList.remove("fa-check");
+			icoOk.classList.remove("text-success");
+
+			icoOk.classList.add("fa-times");
+			icoOk.classList.add("text-danger");
+
+			box.style.borderColor = 'red';
+
+			document.getElementById(layVal).innerHTML="Formato invalido";
+
+			if (input == "celularAgregar") {
+
+				checkCel = false;
+
+			}else if (input == "telefonoAgregar") {
+
+				checkTel = false;
+
+			}
+
+
+		}else{
+
+			// console.log("aaray", cadena[i]);
+
+			icoOk.classList.remove("fa-times");
+			icoOk.classList.remove("text-danger");
+
+			icoOk.classList.add("fa-check");
+			icoOk.classList.add("text-success");
+
+			box.style.borderColor = 'green';
+			document.getElementById(layVal).innerHTML="";
+
+			if (input == "celularAgregar") {
+
+				checkCel = true;
+
+			}else if (input == "telefonoAgregar") {
+
+				checkTel = true;
+
+			}
+
+		}
+
+	}
+
+}
+
+const celularAgregar = document.getElementById("celularAgregar");
+
+celularAgregar.addEventListener("keyup", ()=>{
+
+	const valor    = celularAgregar.value;
+	const icoOkTel = "icoOkTelcel";
+	const input    = "celularAgregar";
+	const layVal   = "layValTelcel";
+
+	validarTel(valor, icoOkTel, input, layVal);
+
+})
+
+
+const telefonoAgregar = document.getElementById("telefonoAgregar");
+
+telefonoAgregar.addEventListener("keyup", ()=>{
+
+	const valor    = telefonoAgregar.value;
+	const icoOkTel = "icoOkTel";
+	const input    = "telefonoAgregar";
+	const layVal   = "layValTel";
+
+	validarTel(valor, icoOkTel, input, layVal);
+
+})
 
 
 /*=============================================
