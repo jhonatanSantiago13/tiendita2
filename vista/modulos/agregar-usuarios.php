@@ -198,6 +198,9 @@
 
                                                 </div>
 
+                                                <i class="fas " id="icoOkMail"></i> &nbsp;
+                                                <span id="layValMail" style="color: red; font-size: 11px;"></span>
+
                                             </div>
 
                                         </div>
@@ -291,9 +294,9 @@
 
 
 
-                                  <!-- <button class="btn btn-primary" id="sigPersonalAgregar" onclick="stepper.next()">Siguiente</button> -->
+                                  <button class="btn btn-primary" id="sigPersonalAgregar" onclick="stepper.next()">Siguiente</button>
 
-                                  <button class="btn btn-default disabled" id="sigPersonalAgregar">Siguiente</button>
+                                  <!-- <button class="btn btn-default disabled" id="sigPersonalAgregar">Siguiente</button> -->
 
 
 

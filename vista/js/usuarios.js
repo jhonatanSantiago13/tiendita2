@@ -262,8 +262,8 @@ let checkCurp     = false;
 let checkClaveIne = false;
 let checkRfc      = false;
 let checkCel 	  = false;
-let checkTell 	  = false;
 let checkTel      = false;
+let checkMail     = false;
 
 /*=============================================
 CAMPO NOMBRE
@@ -334,6 +334,8 @@ nombreAgregar.addEventListener("keyup", ()=>{
 
 	}
 
+	// checkInputPersonal();
+
 })
 
 /*=============================================
@@ -400,6 +402,8 @@ apellidoAgregar.addEventListener("keyup", ()=>{
 		console.log("checkApellido", checkApellido);
 
 	}
+
+	// checkInputPersonal();
 
 })
 
@@ -486,6 +490,8 @@ fechaNacAgregar.addEventListener("change", ()=>{
 
 	}
 
+	// checkInputPersonal();
+
 })
 
 
@@ -567,6 +573,7 @@ curpAgregar.addEventListener("keyup", ()=>{
 
 	}
 
+	// checkInputPersonal();
 
 })
 
@@ -641,6 +648,8 @@ const icoOkClaveIne = document.getElementById("icoOkClaveIne");
 		document.getElementById("layValClaveIne").innerHTML="";
 
 	}
+
+	// checkInputPersonal();
 
 })
 
@@ -728,6 +737,8 @@ rfcAgregar.addEventListener("keyup", ()=>{
 
 	}
 
+	// checkInputPersonal();
+
 })
 
 /*=============================================
@@ -810,6 +821,7 @@ celularAgregar.addEventListener("keyup", ()=>{
 	const layVal   = "layValTelcel";
 
 	validarTel(valor, icoOkTel, input, layVal);
+	// checkInputPersonal();
 
 })
 
@@ -824,9 +836,76 @@ telefonoAgregar.addEventListener("keyup", ()=>{
 	const layVal   = "layValTel";
 
 	validarTel(valor, icoOkTel, input, layVal);
+	// checkInputPersonal();
 
 })
 
+/*=============================================
+CAMPO PARA VALIDAR CORREO
+=============================================*/
+/*validarTel(valor=valor del campo, icoMail= icono de check o times, input= caja de texto, layVal=
+el label delmensaje de error*/
+
+const validarMail = (valor, icoOkMail, input, layVal) =>{
+
+	const re     = "[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}";
+    let validado = valor.match(re);
+    const icoOk  = document.getElementById(icoOkMail);
+	const box    = document.getElementById(input);
+
+    if (!validado){
+
+    		icoOk.classList.remove("fa-check");
+			icoOk.classList.remove("text-success");
+
+			icoOk.classList.add("fa-times");
+			icoOk.classList.add("text-danger");
+
+			box.style.borderColor = 'red';
+
+			document.getElementById(layVal).innerHTML="Formato invalido";
+
+			if (input == "correoAgregar"){
+
+				checkMail = false;
+
+			}
+
+    }else{
+
+    		icoOk.classList.remove("fa-times");
+			icoOk.classList.remove("text-danger");
+
+			icoOk.classList.add("fa-check");
+			icoOk.classList.add("text-success");
+
+			box.style.borderColor = 'green';
+			document.getElementById(layVal).innerHTML="";
+
+			if (input == "correoAgregar"){
+
+				checkMail = true;
+
+			}
+
+    }
+
+}
+
+const correoAgregar = document.getElementById("correoAgregar");
+
+correoAgregar.addEventListener("keyup", ()=>{
+
+	const correo    = correoAgregar.value;
+	const icoOkMail = "icoOkMail";
+	const input     = "correoAgregar";
+	const layVal    = "layValMail";
+
+	validarMail(correo, icoOkMail, input, layVal);
+
+	// checkInputPersonal();
+
+})
 
 /*=============================================
 BOTON DE SIGUIENTE PERSONAL
@@ -834,7 +913,7 @@ BOTON DE SIGUIENTE PERSONAL
 
 const checkInputPersonal = () =>{
 
- 	const nombreAgregar = document.getElementById("nombreAgregar").value;
+ 	/*const nombreAgregar = document.getElementById("nombreAgregar").value;
  	const apellidoAgregar = document.getElementById("apellidoAgregar").value;
  	const fechaNacAgregar = document.getElementById("fechaNacAgregar").value;
  	const curpAgregar = document.getElementById("curpAgregar").value;
@@ -842,17 +921,37 @@ const checkInputPersonal = () =>{
  	const rfcAgregar = document.getElementById("rfcAgregar").value;
  	const celularAgregar = document.getElementById("celularAgregar").value;
  	const telefonoAgregar = document.getElementById("telefonoAgregar").value;
- 	const correoAgregar = document.getElementById("correoAgregar").value;
+ 	const correoAgregar = document.getElementById("correoAgregar").value;*/
 
+ 	if (checkNombre && checkApellido && checkFechaNac && checkCurp && checkClaveIne && checkRfc && checkCel &&
+		checkTel && checkMail) {
+
+ 		const sigPersonalAgregar = document.getElementById("sigPersonalAgregar");
+
+ 		sigPersonalAgregar.classList.remove("btn-default");
+ 		sigPersonalAgregar.classList.remove("disabled");
+
+ 		sigPersonalAgregar.classList.add("btn-primary");
+
+ 		sigPersonalAgregar.setAttribute("onclick", "stepper.next()");
+
+
+
+ 	}else{
+
+ 		sigPersonalAgregar.classList.remove("btn-primary");
+
+ 		sigPersonalAgregar.classList.add("btn-default");
+ 		sigPersonalAgregar.classList.add("disabled");
+
+
+ 		sigPersonalAgregar.removeAttribute("onclick");
+
+ 	}
 
 }
 
 
-const sigPersonalAgregar = document.getElementById("sigPersonalAgregar");
-
-sigPersonalAgregar.addEventListener("click", ()=>{
-
-});
 
 
 
