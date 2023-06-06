@@ -208,31 +208,43 @@ const getColonia = async(cp, estado, municipio, colonia) =>{
 
 	const data = await result.json();
 
-	console.log("data", data);
 
-	document.getElementById(estado).value=data["estado"];
-	document.getElementById(municipio).value=data["municipio"];
+	// console.log("data", data);
 
-	let colonias = `<option value="sn">Elige una Opción</option>`;
+	if (data["estado"] == "Sin Resultados"){
 
-	// console.log("co", response["colonias"].length);
+		document.getElementById(estado).value=data["estado"];
+		document.getElementById(municipio).value=data["municipio"];
 
-	for(let i = 0;  i< data["colonias"].length; i ++){
+	}else{
 
-		// console.log("col", response["colonias"][i]);
+		document.getElementById(estado).value=data["estado"];
+		document.getElementById(municipio).value=data["municipio"];
 
-		colonias += `<option value="${data["colonias"][i]}">${data["colonias"][i]}</option>`;
+		// console.log("estado", data.length);
+
+		let colonias = `<option value="sn">Elige una Opción</option>`;
+
+		// console.log("co", response["colonias"].length);
+
+		for(let i = 0;  i< data["colonias"].length; i ++){
+
+			// console.log("col", response["colonias"][i]);
+
+			colonias += `<option value="${data["colonias"][i]}">${data["colonias"][i]}</option>`;
+
+		}
+
+		document.getElementById(colonia).innerHTML=`${colonias}`;
 
 	}
-
-	document.getElementById(colonia).innerHTML=`${colonias}`;
 
 }
 
 
-const cpAgregar = document.getElementById("cpAgregar");
+// const cpAgregar = document.getElementById("cpAgregar");
 
-if (cpAgregar != null) {
+/*if (cpAgregar != null) {
 
 	cpAgregar.addEventListener("change", ()=>{
 
@@ -244,9 +256,10 @@ if (cpAgregar != null) {
 
 		getColonia(cp, estado, municipio, colonia);
 
+
 	})
 
-}
+}*/
 
 /*=============================================
 /*=============================================
@@ -271,72 +284,78 @@ CAMPO NOMBRE
 
 const nombreAgregar = document.getElementById("nombreAgregar");
 
-nombreAgregar.addEventListener("keyup", ()=>{
+if (nombreAgregar != null) {
 
-	const nombre = nombreAgregar.value;
-	let icoOkNombre  = document.getElementById("icoOkNombre");
+	nombreAgregar.addEventListener("keyup", ()=>{
 
-
-	// checkNombre(nombre);
-
-
-	if (nombre.length <= 3){
-
-		checkNombre = false;
-
-		// console.log('es menor');
-		// console.log("checkNombre", checkNombre);
-
-		icoOkNombre.classList.remove("fa-check");
-		icoOkNombre.classList.remove("text-success");
-
-		icoOkNombre.classList.add("fa-times");
-		icoOkNombre.classList.add("text-danger");
-
-		nombreAgregar.style.borderColor = 'red';
-
-		document.getElementById("layValNombre").innerHTML="El nombre es demasiado corto ";
+		const nombre = nombreAgregar.value;
+		let icoOkNombre  = document.getElementById("icoOkNombre");
 
 
-	}else if (/\d/.test(nombre.trim())) {
-
-		checkNombre = false;
-
-		// console.log("tiene un numero");
-		// console.log("checkNombre", checkNombre);
+		// checkNombre(nombre);
 
 
-		icoOkNombre.classList.remove("fa-check");
-		icoOkNombre.classList.remove("text-success");
+		if (nombre.length <= 3){
 
-		icoOkNombre.classList.add("fa-times");
-		icoOkNombre.classList.add("text-danger");
+			checkNombre = false;
 
-		nombreAgregar.style.borderColor = 'red';
+			// console.log('es menor');
+			// console.log("checkNombre", checkNombre);
 
-		document.getElementById("layValNombre").innerHTML="No se permiten numeros ";
+			icoOkNombre.classList.remove("fa-check");
+			icoOkNombre.classList.remove("text-success");
 
-	}else{
+			icoOkNombre.classList.add("fa-times");
+			icoOkNombre.classList.add("text-danger");
 
-		checkNombre = true;
+			nombreAgregar.style.borderColor = 'red';
 
-		icoOkNombre.classList.remove("fa-times");
-		icoOkNombre.classList.remove("text-danger");
+			document.getElementById("layValNombre").innerHTML="El nombre es demasiado corto ";
 
-		icoOkNombre.classList.add("fa-check");
-		icoOkNombre.classList.add("text-success");
 
-		nombreAgregar.style.borderColor = 'green';
+		}else if (/\d/.test(nombre.trim())) {
 
-		document.getElementById("layValNombre").innerHTML="";
+			checkNombre = false;
 
-		// console.log("checkNombre", checkNombre);
+			// console.log("tiene un numero");
+			// console.log("checkNombre", checkNombre);
 
-	}
 
-	// checkInputPersonal();
+			icoOkNombre.classList.remove("fa-check");
+			icoOkNombre.classList.remove("text-success");
 
-})
+			icoOkNombre.classList.add("fa-times");
+			icoOkNombre.classList.add("text-danger");
+
+			nombreAgregar.style.borderColor = 'red';
+
+			document.getElementById("layValNombre").innerHTML="No se permiten numeros ";
+
+		}else{
+
+			checkNombre = true;
+
+			icoOkNombre.classList.remove("fa-times");
+			icoOkNombre.classList.remove("text-danger");
+
+			icoOkNombre.classList.add("fa-check");
+			icoOkNombre.classList.add("text-success");
+
+			nombreAgregar.style.borderColor = 'green';
+
+			document.getElementById("layValNombre").innerHTML="";
+
+			// console.log("checkNombre", checkNombre);
+
+		}
+
+		// checkInputPersonal();
+
+	})
+
+}
+
+
 
 /*=============================================
 CAMPO APELLIDO
@@ -344,68 +363,75 @@ CAMPO APELLIDO
 
 const apellidoAgregar = document.getElementById("apellidoAgregar");
 
-apellidoAgregar.addEventListener("keyup", ()=>{
+if (apellidoAgregar != null){
 
-	const apellido = apellidoAgregar.value;
-	let icoOkApeliido  = document.getElementById("icoOkApeliido");
+	apellidoAgregar.addEventListener("keyup", ()=>{
 
-	if (apellido.length <= 3){
+		const apellido = apellidoAgregar.value;
+		let icoOkApeliido  = document.getElementById("icoOkApeliido");
 
-		checkApellido = false;
+		if (apellido.length <= 3){
 
-		// console.log('es menor');
-		// console.log("checkApellido", checkApellido);
+			checkApellido = false;
 
-		icoOkApellido.classList.remove("fa-check");
-		icoOkApellido.classList.remove("text-success");
+			// console.log('es menor');
+			// console.log("checkApellido", checkApellido);
 
-		icoOkApellido.classList.add("fa-times");
-		icoOkApellido.classList.add("text-danger");
+			icoOkApellido.classList.remove("fa-check");
+			icoOkApellido.classList.remove("text-success");
 
-		apellidoAgregar.style.borderColor = 'red';
+			icoOkApellido.classList.add("fa-times");
+			icoOkApellido.classList.add("text-danger");
 
-		document.getElementById("layValApellido").innerHTML="El nombre es demasiado corto";
+			apellidoAgregar.style.borderColor = 'red';
 
-
-	}else if (/\d/.test(apellido.trim())) {
-
-		checkApellido = false;
-
-		// console.log("tiene un numero");
-		// console.log("checkApellido", checkApellido);
+			document.getElementById("layValApellido").innerHTML="El nombre es demasiado corto";
 
 
-		icoOkApellido.classList.remove("fa-check");
-		icoOkApellido.classList.remove("text-success");
+		}else if (/\d/.test(apellido.trim())) {
 
-		icoOkApellido.classList.add("fa-times");
-		icoOkApellido.classList.add("text-danger");
+			checkApellido = false;
 
-		apellidoAgregar.style.borderColor = 'red';
+			// console.log("tiene un numero");
+			// console.log("checkApellido", checkApellido);
 
-		document.getElementById("layValApellido").innerHTML="No se permiten numeros";
 
-	}else{
+			icoOkApellido.classList.remove("fa-check");
+			icoOkApellido.classList.remove("text-success");
 
-		checkApellido = true;
+			icoOkApellido.classList.add("fa-times");
+			icoOkApellido.classList.add("text-danger");
 
-		icoOkApellido.classList.remove("fa-times");
-		icoOkApellido.classList.remove("text-danger");
+			apellidoAgregar.style.borderColor = 'red';
 
-		icoOkApellido.classList.add("fa-check");
-		icoOkApellido.classList.add("text-success");
+			document.getElementById("layValApellido").innerHTML="No se permiten numeros";
 
-		apellidoAgregar.style.borderColor = 'green';
+		}else{
 
-		document.getElementById("layValApellido").innerHTML="";
+			checkApellido = true;
 
-		console.log("checkApellido", checkApellido);
+			icoOkApellido.classList.remove("fa-times");
+			icoOkApellido.classList.remove("text-danger");
 
-	}
+			icoOkApellido.classList.add("fa-check");
+			icoOkApellido.classList.add("text-success");
 
-	// checkInputPersonal();
+			apellidoAgregar.style.borderColor = 'green';
 
-})
+			document.getElementById("layValApellido").innerHTML="";
+
+			console.log("checkApellido", checkApellido);
+
+		}
+
+		// checkInputPersonal();
+
+	})
+
+
+}
+
+
 
 /*=============================================
 CAMPO FECHA DE NACIMIENTO
@@ -449,51 +475,55 @@ const validarFormatoFecha = (campo) =>{
 
 const fechaNacAgregar = document.getElementById("fechaNacAgregar");
 
-fechaNacAgregar.addEventListener("change", ()=>{
+	if (fechaNacAgregar != null) {
 
-	let icoOkFechaNac  = document.getElementById("icoOkFechaNac");
+	fechaNacAgregar.addEventListener("change", ()=>{
 
-	// console.log('validarFormatoFecha', validarFormatoFecha(fechaNacAgregar.value));
+		let icoOkFechaNac  = document.getElementById("icoOkFechaNac");
 
-	// console.log("fechaNacAgregar", fechaNacAgregar.value);
+		// console.log('validarFormatoFecha', validarFormatoFecha(fechaNacAgregar.value));
 
-
-
-	if (!validarFormatoFecha(fechaNacAgregar.value)){
-
-		checkFechaNac = false;
+		// console.log("fechaNacAgregar", fechaNacAgregar.value);
 
 
-		icoOkFechaNac.classList.remove("fa-check");
-		icoOkFechaNac.classList.remove("text-success");
 
-		icoOkFechaNac.classList.add("fa-times");
-		icoOkFechaNac.classList.add("text-danger");
+		if (!validarFormatoFecha(fechaNacAgregar.value)){
 
-		fechaNacAgregar.style.borderColor = 'red';
+			checkFechaNac = false;
 
-		document.getElementById("layValFechaNac").innerHTML="Formato de fecha invalido";
 
-	}else{
+			icoOkFechaNac.classList.remove("fa-check");
+			icoOkFechaNac.classList.remove("text-success");
 
-		checkFechaNac = true;
+			icoOkFechaNac.classList.add("fa-times");
+			icoOkFechaNac.classList.add("text-danger");
 
-		icoOkFechaNac.classList.remove("fa-times");
-		icoOkFechaNac.classList.remove("text-danger");
+			fechaNacAgregar.style.borderColor = 'red';
 
-		icoOkFechaNac.classList.add("fa-check");
-		icoOkFechaNac.classList.add("text-success");
+			document.getElementById("layValFechaNac").innerHTML="Formato de fecha invalido";
 
-		fechaNacAgregar.style.borderColor = 'green';
+		}else{
 
-		document.getElementById("layValFechaNac").innerHTML="";
+			checkFechaNac = true;
 
-	}
+			icoOkFechaNac.classList.remove("fa-times");
+			icoOkFechaNac.classList.remove("text-danger");
 
-	// checkInputPersonal();
+			icoOkFechaNac.classList.add("fa-check");
+			icoOkFechaNac.classList.add("text-success");
 
-})
+			fechaNacAgregar.style.borderColor = 'green';
 
+			document.getElementById("layValFechaNac").innerHTML="";
+
+		}
+
+		// checkInputPersonal();
+
+	})
+
+
+}
 
 /*=============================================
 CAMPO PARA VALIDAR CURP
@@ -533,49 +563,55 @@ const validarCurp = (curp) =>{
 
 const curpAgregar = document.getElementById("curpAgregar");
 
-curpAgregar.addEventListener("keyup", ()=>{
+if (curpAgregar != null) {
 
-	let icoOkCurp  = document.getElementById("icoOkCurp");
+	curpAgregar.addEventListener("keyup", ()=>{
 
-	const curp = curpAgregar.value;
+		let icoOkCurp  = document.getElementById("icoOkCurp");
 
-	/*console.log("curp", curp);
+		const curp = curpAgregar.value;
 
-	console.log("validarCurp", validarCurp(curp));*/
+		/*console.log("curp", curp);
 
-	if (!validarCurp(curp)) {
+		console.log("validarCurp", validarCurp(curp));*/
 
-		checkCurp = false;
+		if (!validarCurp(curp)) {
 
-		icoOkCurp.classList.remove("fa-check");
-		icoOkCurp.classList.remove("text-success");
+			checkCurp = false;
 
-		icoOkCurp.classList.add("fa-times");
-		icoOkCurp.classList.add("text-danger");
+			icoOkCurp.classList.remove("fa-check");
+			icoOkCurp.classList.remove("text-success");
 
-		curpAgregar.style.borderColor = 'red';
+			icoOkCurp.classList.add("fa-times");
+			icoOkCurp.classList.add("text-danger");
 
-		document.getElementById("layValCurp").innerHTML="No se permiten numeros";
+			curpAgregar.style.borderColor = 'red';
 
-	}else{
+			document.getElementById("layValCurp").innerHTML="No se permiten numeros";
 
-		checkCurp = true;
+		}else{
 
-		icoOkCurp.classList.remove("fa-times");
-		icoOkCurp.classList.remove("text-danger");
+			checkCurp = true;
 
-		icoOkCurp.classList.add("fa-check");
-		icoOkCurp.classList.add("text-success");
+			icoOkCurp.classList.remove("fa-times");
+			icoOkCurp.classList.remove("text-danger");
 
-		curpAgregar.style.borderColor = 'green';
+			icoOkCurp.classList.add("fa-check");
+			icoOkCurp.classList.add("text-success");
 
-		document.getElementById("layValCurp").innerHTML="";
+			curpAgregar.style.borderColor = 'green';
 
-	}
+			document.getElementById("layValCurp").innerHTML="";
 
-	// checkInputPersonal();
+		}
 
-})
+		// checkInputPersonal();
+
+	})
+
+}
+
+
 
 /*=============================================
 CAMPO PARA VALIDAR CLAVE INE
@@ -583,75 +619,80 @@ CAMPO PARA VALIDAR CLAVE INE
 
 const claveIneAgregar = document.getElementById("claveIneAgregar");
 
-claveIneAgregar.addEventListener("keyup", ()=>{
+if (claveIneAgregar != null){
+
+	claveIneAgregar.addEventListener("keyup", ()=>{
 
 
-const icoOkClaveIne = document.getElementById("icoOkClaveIne");
+	const icoOkClaveIne = document.getElementById("icoOkClaveIne");
 
-	const clave     = claveIneAgregar.value;
-	const expresion = "^[0-9]+$";
+		const clave     = claveIneAgregar.value;
+		const expresion = "^[0-9]+$";
 
-	if (clave.match(expresion) == null){
+		if (clave.match(expresion) == null){
 
-		checkClaveIne = false;
+			checkClaveIne = false;
 
-		icoOkClaveIne.classList.remove("fa-check");
-		icoOkClaveIne.classList.remove("text-success");
+			icoOkClaveIne.classList.remove("fa-check");
+			icoOkClaveIne.classList.remove("text-success");
 
-		icoOkClaveIne.classList.add("fa-times");
-		icoOkClaveIne.classList.add("text-danger");
+			icoOkClaveIne.classList.add("fa-times");
+			icoOkClaveIne.classList.add("text-danger");
 
-		claveIneAgregar.style.borderColor = 'red';
+			claveIneAgregar.style.borderColor = 'red';
 
-		document.getElementById("layValClaveIne").innerHTML="Solo se permiten números";
+			document.getElementById("layValClaveIne").innerHTML="Solo se permiten números";
 
-	}else if (clave.length < 10) {
+		}else if (clave.length < 10) {
 
-		checkClaveIne = false;
+			checkClaveIne = false;
 
-		icoOkClaveIne.classList.remove("fa-check");
-		icoOkClaveIne.classList.remove("text-success");
+			icoOkClaveIne.classList.remove("fa-check");
+			icoOkClaveIne.classList.remove("text-success");
 
-		icoOkClaveIne.classList.add("fa-times");
-		icoOkClaveIne.classList.add("text-danger");
+			icoOkClaveIne.classList.add("fa-times");
+			icoOkClaveIne.classList.add("text-danger");
 
-		claveIneAgregar.style.borderColor = 'red';
+			claveIneAgregar.style.borderColor = 'red';
 
-		document.getElementById("layValClaveIne").innerHTML="clave muy pequeña";
+			document.getElementById("layValClaveIne").innerHTML="clave muy pequeña";
 
-	}else if (clave.length > 10) {
+		}else if (clave.length > 10) {
 
-		checkClaveIne = false;
+			checkClaveIne = false;
 
-		icoOkClaveIne.classList.remove("fa-check");
-		icoOkClaveIne.classList.remove("text-success");
+			icoOkClaveIne.classList.remove("fa-check");
+			icoOkClaveIne.classList.remove("text-success");
 
-		icoOkClaveIne.classList.add("fa-times");
-		icoOkClaveIne.classList.add("text-danger");
+			icoOkClaveIne.classList.add("fa-times");
+			icoOkClaveIne.classList.add("text-danger");
 
-		claveIneAgregar.style.borderColor = 'red';
+			claveIneAgregar.style.borderColor = 'red';
 
-		document.getElementById("layValClaveIne").innerHTML="solo se permiten 10 dígitos";
+			document.getElementById("layValClaveIne").innerHTML="solo se permiten 10 dígitos";
 
-	}else{
+		}else{
 
-		checkClaveIne = true;
+			checkClaveIne = true;
 
-		icoOkClaveIne.classList.remove("fa-times");
-		icoOkClaveIne.classList.remove("text-danger");
+			icoOkClaveIne.classList.remove("fa-times");
+			icoOkClaveIne.classList.remove("text-danger");
 
-		icoOkClaveIne.classList.add("fa-check");
-		icoOkClaveIne.classList.add("text-success");
+			icoOkClaveIne.classList.add("fa-check");
+			icoOkClaveIne.classList.add("text-success");
 
-		claveIneAgregar.style.borderColor = 'green';
+			claveIneAgregar.style.borderColor = 'green';
 
-		document.getElementById("layValClaveIne").innerHTML="";
+			document.getElementById("layValClaveIne").innerHTML="";
 
-	}
+		}
 
-	// checkInputPersonal();
+		// checkInputPersonal();
 
-})
+	})
+
+}
+
 
 /*=============================================
 CAMPO PARA VALIDAR RFC
@@ -702,44 +743,49 @@ const validarRfc = (rfc)=>{
 
 const rfcAgregar = document.getElementById("rfcAgregar");
 
-rfcAgregar.addEventListener("keyup", ()=>{
+if (rfcAgregar != null) {
 
-	const rfc      = rfcAgregar.value;
-	const icoOkRfc = document.getElementById("icoOkRfc");
+	rfcAgregar.addEventListener("keyup", ()=>{
 
-	if (!validarRfc(rfc)) {
+		const rfc      = rfcAgregar.value;
+		const icoOkRfc = document.getElementById("icoOkRfc");
 
-		checkRfc = false;
+		if (!validarRfc(rfc)) {
 
-		icoOkRfc.classList.remove("fa-check");
-		icoOkRfc.classList.remove("text-success");
+			checkRfc = false;
 
-		icoOkRfc.classList.add("fa-times");
-		icoOkRfc.classList.add("text-danger");
+			icoOkRfc.classList.remove("fa-check");
+			icoOkRfc.classList.remove("text-success");
 
-		rfcAgregar.style.borderColor = 'red';
+			icoOkRfc.classList.add("fa-times");
+			icoOkRfc.classList.add("text-danger");
 
-		document.getElementById("layValRfc").innerHTML="RFC invalido";
+			rfcAgregar.style.borderColor = 'red';
 
-	}else{
+			document.getElementById("layValRfc").innerHTML="RFC invalido";
 
-		checkRfc = true;
+		}else{
 
-		icoOkRfc.classList.remove("fa-times");
-		icoOkRfc.classList.remove("text-danger");
+			checkRfc = true;
 
-		icoOkRfc.classList.add("fa-check");
-		icoOkRfc.classList.add("text-success");
+			icoOkRfc.classList.remove("fa-times");
+			icoOkRfc.classList.remove("text-danger");
 
-		rfcAgregar.style.borderColor = 'green';
+			icoOkRfc.classList.add("fa-check");
+			icoOkRfc.classList.add("text-success");
 
-		document.getElementById("layValRfc").innerHTML="";
+			rfcAgregar.style.borderColor = 'green';
 
-	}
+			document.getElementById("layValRfc").innerHTML="";
 
-	// checkInputPersonal();
+		}
 
-})
+		// checkInputPersonal();
+
+	})
+
+}
+
 
 /*=============================================
 CAMPO PARA VALIDAR TELEFONOS
@@ -813,32 +859,41 @@ const validarTel = (valor, icoOkTel, input, layVal) =>{
 
 const celularAgregar = document.getElementById("celularAgregar");
 
-celularAgregar.addEventListener("keyup", ()=>{
+if (celularAgregar != null) {
 
-	const valor    = celularAgregar.value;
-	const icoOkTel = "icoOkTelcel";
-	const input    = "celularAgregar";
-	const layVal   = "layValTelcel";
+	celularAgregar.addEventListener("keyup", ()=>{
 
-	validarTel(valor, icoOkTel, input, layVal);
-	// checkInputPersonal();
+		const valor    = celularAgregar.value;
+		const icoOkTel = "icoOkTelcel";
+		const input    = "celularAgregar";
+		const layVal   = "layValTelcel";
 
-})
+		validarTel(valor, icoOkTel, input, layVal);
+		// checkInputPersonal();
 
+	})
+
+}
 
 const telefonoAgregar = document.getElementById("telefonoAgregar");
 
-telefonoAgregar.addEventListener("keyup", ()=>{
+if (telefonoAgregar != null) {
 
-	const valor    = telefonoAgregar.value;
-	const icoOkTel = "icoOkTel";
-	const input    = "telefonoAgregar";
-	const layVal   = "layValTel";
+	telefonoAgregar.addEventListener("keyup", ()=>{
 
-	validarTel(valor, icoOkTel, input, layVal);
-	// checkInputPersonal();
+		const valor    = telefonoAgregar.value;
+		const icoOkTel = "icoOkTel";
+		const input    = "telefonoAgregar";
+		const layVal   = "layValTel";
 
-})
+		validarTel(valor, icoOkTel, input, layVal);
+		// checkInputPersonal();
+
+	})
+
+
+}
+
 
 /*=============================================
 CAMPO PARA VALIDAR CORREO
@@ -894,18 +949,23 @@ const validarMail = (valor, icoOkMail, input, layVal) =>{
 
 const correoAgregar = document.getElementById("correoAgregar");
 
-correoAgregar.addEventListener("keyup", ()=>{
+if (correoAgregar != null) {
 
-	const correo    = correoAgregar.value;
-	const icoOkMail = "icoOkMail";
-	const input     = "correoAgregar";
-	const layVal    = "layValMail";
+	correoAgregar.addEventListener("keyup", ()=>{
 
-	validarMail(correo, icoOkMail, input, layVal);
+		const correo    = correoAgregar.value;
+		const icoOkMail = "icoOkMail";
+		const input     = "correoAgregar";
+		const layVal    = "layValMail";
 
-	// checkInputPersonal();
+		validarMail(correo, icoOkMail, input, layVal);
 
-})
+		// checkInputPersonal();
+
+	})
+
+}
+
 
 /*=============================================
 BOTON DE SIGUIENTE PERSONAL
@@ -952,6 +1012,105 @@ const checkInputPersonal = () =>{
 }
 
 
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+BOTONES DE SIGUIENTE EN AGREGAR DIRECCION
+=============================================*/
+
+let checkCp = false;
+
+
+/*=============================================
+CAMPO CP
+=============================================*/
+
+const validarCp = (valor, icoOkCp, input, layVal) =>{
+
+	if (isNaN(valor)) {
+
+		console.log("cadena");
+
+		return false;
+
+	}else if (valor.length < 5) {
+
+		console.log("tamaño no valido");
+
+		return false;
+
+	}else if (valor.length > 5) {
+
+		console.log("tamaño no valido");
+
+		return false;
+
+	}
+
+	else if (!isNaN(valor) && valor.length == 5) {
+
+		return true;
+
+	}
+
+}
+
+const cpAgregarKeyup = document.getElementById("cpAgregar");
+
+if (cpAgregarKeyup != null) {
+
+	cpAgregarKeyup.addEventListener("keyup", ()=>{
+
+			const cp      = cpAgregarKeyup.value;
+		    const icoOkCp = "icoOkCp";
+			const input   = "cpAgregar";
+			const layVal  = "layValCp";
+
+
+			if (validarCp(cp, icoOkCp, input, layVal)) {
+
+				const municipio = "municipioAgregar";
+				const estado 	= "estadoAgregar";
+				const colonia 	= "coloniaAgregar";
+
+				getColonia(cp, estado, municipio, colonia);
+
+
+			}else{
+
+				const municipio = "municipioAgregar";
+				const estado 	= "estadoAgregar";
+				const colonia 	= "coloniaAgregar";
+
+				document.getElementById(municipio).value="";
+				document.getElementById(estado).value="";
+				document.getElementById(colonia).innerHTML=`<option value="sn">-----------</option>`;
+
+
+			}
+
+
+	})
+
+}
+
+
+// const cpAgregar = document.getElementById("cpAgregar");
+// icoOkCp
+// layValCp
+const calleAgregar = document.getElementById("calleAgregar");
+// icoOkCalle
+// layValCalle
+const numIntAgregar = document.getElementById("numIntAgregar");
+// icoOkNumInt
+// layValNumInt
+const coloniaAgregar = document.getElementById("coloniaAgregar");
+// icoOkCol
+// layValCol
+const numExtAgregar = document.getElementById("numExtAgregar");
+// icoOkNumExt
+// layValNumExt
 
 
 

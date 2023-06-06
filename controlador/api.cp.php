@@ -1,32 +1,50 @@
 <?php
 
+// No mostrar los errores de PHP
+error_reporting(0);
+
 class ApiCp{
 
 	static public function getColonias($cp){
 
 			$homepage = file_get_contents("http://apicp.softfortoday.com/api/v1/codigos_postales/$cp");
 
-			$datos = json_decode($homepage, true);
+			if ($homepage) {
 
-			$estado = $datos["respuesta"]["codigos_postales"][0]["estado"];
-			$municipio = $datos["respuesta"]["codigos_postales"][0]["municipio"];
+				$datos = json_decode($homepage, true);
 
-			$colonias = [];
+				$estado = $datos["respuesta"]["codigos_postales"][0]["estado"];
+				$municipio = $datos["respuesta"]["codigos_postales"][0]["municipio"];
 
-			// echo sizeof($datos["respuesta"]["codigos_postales"]);
+				$colonias = [];
 
-			for ($i=0; $i < sizeof($datos["respuesta"]["codigos_postales"]); $i++) {
+				// echo sizeof($datos["respuesta"]["codigos_postales"]);
 
-				array_push($colonias, $datos["respuesta"]["codigos_postales"][$i]["asentamiento"]);
+				for ($i=0; $i < sizeof($datos["respuesta"]["codigos_postales"]); $i++) {
+
+					array_push($colonias, $datos["respuesta"]["codigos_postales"][$i]["asentamiento"]);
+
+				}
+
+				$data = array("estado"    => $estado,
+		              "municipio" => $municipio,
+		              "colonias"  => $colonias);
+
+
+				// echo json_encode($data);
+
+				// return $data;
+
+
+			}else{
+
+				$colonias = array( "No se encontraron resultados");
+
+				$data = array("estado"    => "Sin Resultados",
+	              			  "municipio" => "Sin Resultados",
+	              			  "colonias"  => $colonias);
 
 			}
-
-			$data = array("estado"    => $estado,
-	              "municipio" => $municipio,
-	              "colonias"  => $colonias);
-
-
-			// echo json_encode($data);
 
 			return $data;
 

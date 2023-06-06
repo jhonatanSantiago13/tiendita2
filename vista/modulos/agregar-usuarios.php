@@ -323,6 +323,8 @@
                                                 <input type="text" id="cpAgregar" class="form-control">
 
                                               </div>
+                                              <i class="fas " id="icoOkCp"></i> &nbsp;
+                                              <span id="layValCp" style="color: red; font-size: 11px;"></span>
 
                                           </div>
 
@@ -359,6 +361,9 @@
 
                                               </div>
 
+                                              <i class="fas " id="icoOkCalle"></i> &nbsp;
+                                              <span id="layValCalle" style="color: red; font-size: 11px;"></span>
+
                                           </div>
 
                                           <div class="form-group">
@@ -374,6 +379,8 @@
                                                 <input type="text" id="numIntAgregar" class="form-control">
 
                                               </div>
+                                              <i class="fas " id="icoOkNumInt"></i> &nbsp;
+                                                <span id="layValNumInt" style="color: red; font-size: 11px;"></span>
 
                                           </div>
 
@@ -416,6 +423,8 @@
                                                 </select>
 
                                               </div>
+                                              <i class="fas " id="icoOkCol"></i> &nbsp;
+                                              <span id="layValCol" style="color: red; font-size: 11px;"></span>
 
                                           </div>
 
@@ -433,6 +442,9 @@
 
                                               </div>
 
+                                              <i class="fas " id="icoOkNumExt"></i> &nbsp;
+                                              <span id="layValNumExt" style="color: red; font-size: 11px;"></span>
+
                                           </div>
 
                                       </div>
@@ -442,7 +454,10 @@
                                   </div>
 
                                   <button class="btn btn-default" onclick="stepper.previous()">Anterior</button>
-                                  <button class="btn btn-primary" onclick="stepper.next()">Siguiente</button>
+
+                                  <!-- <button class="btn btn-primary" onclick="stepper.next()">Siguiente</button> -->
+
+                                  <button class="btn btn-default disabled" id="sigDireccionAgregar">Siguiente</button>
 
 
                                 </div>
