@@ -216,6 +216,8 @@ const getColonia = async(cp, estado, municipio, colonia) =>{
 		document.getElementById(estado).value=data["estado"];
 		document.getElementById(municipio).value=data["municipio"];
 
+
+
 	}else{
 
 		document.getElementById(estado).value=data["estado"];
@@ -1019,8 +1021,13 @@ const checkInputPersonal = () =>{
 BOTONES DE SIGUIENTE EN AGREGAR DIRECCION
 =============================================*/
 
-let checkCp = false;
-
+let checkCp      = false;
+let checkEstado  = false;
+let checkMun     = false;
+let checkColonia = false;
+let checkCalle   = false;
+let checkNumExt  = false;
+let checkNumInt  = false;
 
 /*=============================================
 CAMPO CP
@@ -1028,27 +1035,91 @@ CAMPO CP
 
 const validarCp = (valor, icoOkCp, input, layVal) =>{
 
+	const icoOk  = document.getElementById(icoOkCp);
+	const box    = document.getElementById(input);
+
 	if (isNaN(valor)) {
 
-		console.log("cadena");
+		// console.log("cadena");
+
+		icoOk.classList.remove("fa-check");
+		icoOk.classList.remove("text-success");
+
+		icoOk.classList.add("fa-times");
+		icoOk.classList.add("text-danger");
+
+		box.style.borderColor = 'red';
+
+		document.getElementById(layVal).innerHTML="Formato invalido";
+
+		checkCp      = false;
+		checkEstado  = false;
+		checkMun     = false;
+		checkColonia = false;
 
 		return false;
 
 	}else if (valor.length < 5) {
 
-		console.log("tamaño no valido");
+		// console.log("tamaño no valido");
+
+		icoOk.classList.remove("fa-check");
+		icoOk.classList.remove("text-success");
+
+		icoOk.classList.add("fa-times");
+		icoOk.classList.add("text-danger");
+
+		box.style.borderColor = 'red';
+
+		document.getElementById(layVal).innerHTML=" Código postal muy corto";
+
+		checkCp      = false;
+		checkEstado  = false;
+		checkMun     = false;
+		checkColonia = false;
 
 		return false;
 
 	}else if (valor.length > 5) {
 
-		console.log("tamaño no valido");
+		// console.log("tamaño no valido");
+
+		icoOk.classList.remove("fa-check");
+		icoOk.classList.remove("text-success");
+
+		icoOk.classList.add("fa-times");
+		icoOk.classList.add("text-danger");
+
+		box.style.borderColor = 'red';
+
+		document.getElementById(layVal).innerHTML=" Código postal no debe tener más 5 caracteres";
+
+		checkCp      = false;
+		checkEstado  = false;
+		checkMun     = false;
+		checkColonia = false;
 
 		return false;
 
 	}
 
 	else if (!isNaN(valor) && valor.length == 5) {
+
+
+
+		icoOk.classList.remove("fa-times");
+		icoOk.classList.remove("text-danger");
+
+		icoOk.classList.add("fa-check");
+		icoOk.classList.add("text-success");
+
+		box.style.borderColor = 'green';
+		document.getElementById(layVal).innerHTML="";
+
+		checkCp      = true;
+		checkEstado  = true;
+		checkMun     = true;
+		// checkColonia = true;
 
 		return true;
 
@@ -1066,7 +1137,6 @@ if (cpAgregarKeyup != null) {
 		    const icoOkCp = "icoOkCp";
 			const input   = "cpAgregar";
 			const layVal  = "layValCp";
-
 
 			if (validarCp(cp, icoOkCp, input, layVal)) {
 
@@ -1090,30 +1160,234 @@ if (cpAgregarKeyup != null) {
 
 			}
 
+			checkInputDireccion();
+
+	})
+
+}
+
+/*=============================================
+CAMPO COLONIA
+=============================================*/
+
+const validarColonia = (valor, icoOkCol, input, layVal) =>{
+
+	const icoOk  = document.getElementById(icoOkCol);
+	const box    = document.getElementById(input);
+
+
+	if (valor == "sn"){
+
+		icoOk.classList.remove("fa-check");
+		icoOk.classList.remove("text-success");
+
+		icoOk.classList.add("fa-times");
+		icoOk.classList.add("text-danger");
+
+		box.style.borderColor = 'red';
+
+		document.getElementById(layVal).innerHTML="Elije una Opción";
+
+		checkColonia = false;
+
+	}else{
+
+		icoOk.classList.remove("fa-times");
+		icoOk.classList.remove("text-danger");
+
+		icoOk.classList.add("fa-check");
+		icoOk.classList.add("text-success");
+
+		box.style.borderColor = 'green';
+		document.getElementById(layVal).innerHTML="";
+		checkColonia = true;
+
+	}
+
+}
+
+const coloniaAgregar = document.getElementById("coloniaAgregar");
+
+if (coloniaAgregar != null){
+
+	coloniaAgregar.addEventListener("change", ()=>{
+
+		const valor    = document.getElementById("coloniaAgregar").value;
+        const icoOkCol = "icoOkCol";
+        const input    = "coloniaAgregar";
+        const layVal   = "layValCol";
+
+		validarColonia(valor, icoOkCol, input, layVal);
+
+		checkInputDireccion();
+
+	})
+
+}
+
+/*=============================================
+CAMPO CALLE
+=============================================*/
+
+const validarCalleNumExtInt = (valor, ico, input, layVal, tipo) =>{
+
+	const icoOk  = document.getElementById(ico);
+	const box    = document.getElementById(input);
+
+	let size = 0;
+
+	if (tipo == "calle"){
+		 size = 6;
+	}else if (tipo == "ext") {
+		 size = 3;
+	}else if (tipo == "int") {
+		 size = 2;
+	}
+
+
+	if (valor.length < size){
+
+		icoOk.classList.remove("fa-check");
+		icoOk.classList.remove("text-success");
+
+		icoOk.classList.add("fa-times");
+		icoOk.classList.add("text-danger");
+
+		box.style.borderColor = 'red';
+
+		document.getElementById(layVal).innerHTML="La calle es muy corta";
+
+		if (tipo == "calle"){
+			checkCalle = false;
+		}else if (tipo == "ext") {
+			checkNumExt = false;
+		}else if (tipo == "int") {
+			checkNumInt = false;
+		}
+
+
+
+	}else{
+
+		icoOk.classList.remove("fa-times");
+		icoOk.classList.remove("text-danger");
+
+		icoOk.classList.add("fa-check");
+		icoOk.classList.add("text-success");
+
+		box.style.borderColor = 'green';
+		document.getElementById(layVal).innerHTML="";
+
+		if (tipo == "calle"){
+			checkCalle = true;
+		}else if (tipo == "ext") {
+			checkNumExt = true;
+		}else if (tipo == "int") {
+			checkNumInt = true;
+		}
+
+	}
+
+}
+const calleAgregar = document.getElementById("calleAgregar");
+
+if (calleAgregar != null){
+
+	calleAgregar.addEventListener("keyup", ()=>{
+
+		const calle = document.getElementById("calleAgregar").value;
+
+		const icoOkCalle = "icoOkCalle";
+		const input      = "calleAgregar";
+		const layVal     = "layValCalle";
+
+		validarCalleNumExtInt(calle, icoOkCalle, input, layVal, "calle");
+
+		checkInputDireccion();
+
+	})
+
+}
+
+/*=============================================
+CAMPO NUM EXT
+=============================================*/
+
+const numExtAgregar = document.getElementById("numExtAgregar");
+
+if (numExtAgregar != null) {
+
+	numExtAgregar.addEventListener("keyup", ()=>{
+
+		const valor = document.getElementById("numExtAgregar").value;
+
+		const icoOkNumExt = "icoOkNumExt";
+		const input      = "numExtAgregar";
+		const layVal     = "layValNumExt";
+
+		validarCalleNumExtInt(valor, icoOkNumExt, input, layVal, "ext");
+
+		checkInputDireccion();
+
+	})
+
+}
+
+/*=============================================
+CAMPO NUM INT
+=============================================*/
+
+const numIntAgregar = document.getElementById("numIntAgregar");
+
+if (numIntAgregar != null) {
+
+	numIntAgregar.addEventListener("keyup", ()=>{
+
+		const valor = document.getElementById("numIntAgregar").value;
+
+		const icoOkNumInt = "icoOkNumInt";
+		const input      = "numIntAgregar";
+		const layVal     = "layValNumInt";
+
+		validarCalleNumExtInt(valor, icoOkNumInt, input, layVal, "int");
+
+		checkInputDireccion();
 
 	})
 
 }
 
 
-// const cpAgregar = document.getElementById("cpAgregar");
-// icoOkCp
-// layValCp
-const calleAgregar = document.getElementById("calleAgregar");
-// icoOkCalle
-// layValCalle
-const numIntAgregar = document.getElementById("numIntAgregar");
-// icoOkNumInt
-// layValNumInt
-const coloniaAgregar = document.getElementById("coloniaAgregar");
-// icoOkCol
-// layValCol
-const numExtAgregar = document.getElementById("numExtAgregar");
-// icoOkNumExt
-// layValNumExt
+/*=============================================
+BOTON DE SIGUIENTE DIRECCION
+=============================================*/
+
+const checkInputDireccion = () =>{
+
+
+ 	if (checkCp && checkEstado && checkMun && checkColonia && checkCalle && checkNumExt && checkNumInt) {
+
+ 		const sigDireccionAgregar = document.getElementById("sigDireccionAgregar");
+
+ 		sigDireccionAgregar.classList.remove("btn-default");
+ 		sigDireccionAgregar.classList.remove("disabled");
+
+ 		sigDireccionAgregar.classList.add("btn-primary");
+
+ 		sigDireccionAgregar.setAttribute("onclick", "stepper.next()");
 
 
 
+ 	}else{
+
+ 		sigDireccionAgregar.classList.remove("btn-primary");
+
+ 		sigDireccionAgregar.classList.add("btn-default");
+ 		sigDireccionAgregar.classList.add("disabled");
 
 
+ 		sigDireccionAgregar.removeAttribute("onclick");
 
+ 	}
+
+}

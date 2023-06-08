@@ -418,7 +418,7 @@
 
                                                 <!-- <input type="text" class="form-control"> -->
 
-                                                <select class="form-control select2" id="coloniaAgregar" style="width: 100%;" >
+                                                <select class="form-control" id="coloniaAgregar" style="width: 100%;" >
                                                   <option value="sn">-----------</option>
                                                 </select>
 
@@ -458,6 +458,7 @@
                                   <!-- <button class="btn btn-primary" onclick="stepper.next()">Siguiente</button> -->
 
                                   <button class="btn btn-default disabled" id="sigDireccionAgregar">Siguiente</button>
+
 
 
                                 </div>
