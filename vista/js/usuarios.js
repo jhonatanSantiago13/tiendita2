@@ -192,7 +192,7 @@ if (signin !=null) {
 SELECCION DE COLONIAS POR CODIGO POSTAL
 =============================================*/
 
-const getColonia = async(cp, estado, municipio, colonia) =>{
+const getColonia = async(cp, estado, municipio, colonia, icoOkCp, campoCp, layValCp) =>{
 
 	let datos = new FormData();
 
@@ -216,7 +216,26 @@ const getColonia = async(cp, estado, municipio, colonia) =>{
 		document.getElementById(estado).value=data["estado"];
 		document.getElementById(municipio).value=data["municipio"];
 
+		/*PONER LA CAJA CP*/
+		// #ced4da
 
+		const icoCp = document.getElementById(icoOkCp);
+
+		icoCp.classList.remove("fa-check");
+		icoCp.classList.remove("text-success");
+
+		icoCp.classList.add("fa-times");
+		icoCp.classList.add("text-danger");
+
+
+		document.getElementById(campoCp).style.borderColor = 'red';
+		document.getElementById(layValCp).innerHTML="Código postal no encontrado";
+
+		if ( campoCp == "cpAgregar"){
+
+			checkCp = false;
+
+		}
 
 	}else{
 
@@ -1144,7 +1163,11 @@ if (cpAgregarKeyup != null) {
 				const estado 	= "estadoAgregar";
 				const colonia 	= "coloniaAgregar";
 
-				getColonia(cp, estado, municipio, colonia);
+				const icoOkCp  = "icoOkCp";
+				const campoCp  = "cpAgregar";
+				const layValCp = "layValCp";
+
+				getColonia(cp, estado, municipio, colonia, icoOkCp, campoCp, layValCp);
 
 
 			}else{
@@ -1157,6 +1180,19 @@ if (cpAgregarKeyup != null) {
 				document.getElementById(estado).value="";
 				document.getElementById(colonia).innerHTML=`<option value="sn">-----------</option>`;
 
+				const icoOkCol 		 = document.getElementById("icoOkCol");
+				const coloniaAgregar = document.getElementById("coloniaAgregar");
+
+
+				icoOkCol.classList.remove("fa-check");
+			    icoOkCol.classList.remove("text-success");
+
+				icoOkCol.classList.add("fa-times");
+				icoOkCol.classList.add("text-danger");
+
+				coloniaAgregar.style.borderColor = 'red';
+
+				document.getElementById("layValCol").innerHTML="error en el código postal";
 
 			}
 
